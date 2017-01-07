@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1>Peephole</h1>
+    <style>
+        .text-info {
+            padding-bottom: 10px;
+        }
+    </style>
+    <div class="text-info">This is what's going on outside your door...</div>
+    <img src="http://{{host}}:8080/stream/video.mjpeg" alt="image" style="width:100%;"/>
+{% endblock %}
