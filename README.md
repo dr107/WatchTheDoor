@@ -4,12 +4,16 @@ A video peephole/face detector for Raspberry Pi written in Python/Flask
 # Installation
 ## Install OpenCV
 Install the **python 3**  bindings for OpenCV by following [these instructions](http://www.pyimagesearch.com/2016/04/18/install-guide-raspberry-pi-3-raspbian-jessie-opencv-3/). Note that if you don't want to use a virtualenv, `sudo apt-get install python3-pip`, and just use the `pip3` command wherever the author uses `pip`, and you won't have to mess with virtualenvs. I'm not a terribly experienced python programmer, and don't have many environments to manage, so I found this much more confortable. The following is a 'bare bones' summary of those instructions for the lazy.
+
 ### Make sure your pi is set up properly
+
 1. `ssh` into your Pi. There's plenty of guides on how to do this, it's a waste of space to repeat here.
 2. First, you want to make sure your pi is up to date, and has enough space. If you have an 8GB or less SD card, or have less than a few GB of space left on yours, you'll want to see the above instructions for advice on freeing up space. To update, do `sudo apt-get update && sudo apt-get upgrade`
 3. Install dependencies. `sudo apt-get install build-essential cmake pkg-config libjpeg-dev libtiff5-dev libjasper-dev libpng12-dev libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libffi-dev libxvidcore-dev libx264-dev libgtk2.0-dev libatlas-base-dev gfortran python2.7-dev python3-dev python3-pip`
 4. When I compile stuff from source, I like to keep the source and binary files in a '.stuff directory' off of my home directory. Wherever you like to put your compiled files, just change your directories appropriately. `cd && mkdir .stuff && cd .stuff`
+
 ### Get the code and prepare to build.
+
 1. Download and unzip the openCV source code. I put the links to the 3.1.0 versions here, but feel free to use a different one
 2. `wget -O opencv.zip https://github.com/Itseez/opencv/archive/3.1.0.zip && unzip opencv.zip`
 3. `wget -O opencv_contrib.zip https://github.com/Itseez/opencv_contrib/archive/3.1.0.zip && unzip opencv_contrib.zip`
@@ -23,7 +27,9 @@ Install the **python 3**  bindings for OpenCV by following [these instructions](
     -D INSTALL_PYTHON_EXAMPLES=ON
     -D OPENCV_EXTRA_MODULES_PATH=~/.stuff/opencv_contrib-3.1.0/modules
     -D BUILD_EXAMPLES=ON ..`
+    
 ### Build and install openCV.
+
 1. **The next step is to compile openCV. This step takes over an hour, so it's worth it to make sure you did everything right up to this point, or you'll wind up having to start over. Look at the instructions linked above (ctrl-F examine the output of CMake) and make sure your Python 3 environment is set up properly**
 2. If you've convinced yourself this is going to work, the fastest way to compile this thing is to make use of all four cores. However, it still takes over an hour. (optional) if you want to log out of your pi while this is running, you can use [GNU Screen](https://www.gnu.org/software/screen/). First, install with `sudo apt-get install screen`. You can then make a new screen session with `screen -S compile` (or whatever name you want). You can then run your command, and disconnect by pressing `ctrl-a` then `ctrl-d`, log out of your pi completely if you want, and your command will still be running. To get back to your screen session, do `screen -x compile`. Use `screen -ls` if you forget the name you gave the session.
 3. To finally compile do `make -j4`, then get ready to wait 60-90 minutes.
