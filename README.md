@@ -31,7 +31,8 @@ Install the **python 3**  bindings for OpenCV by following [these instructions](
 5. Now openCV should be installed in python 3. Go to the python3 REPL by doing `python3`, then, from the REPL, do `import cv2`, then `cv2.__version__`. If all went well, it should return `'3.1.0'` (or whatever version you used).
 6. If that worked, congrats! You're 90% of the way to installing this code! If not, I'd recommend following the instructions linked above. The author is a much more experienced python developer than yours truly, and I may have forgotten something. If that's the case, please file an issue through GitHub, and I'll update this doc.
 
-## Install Uv4L, the Streaming server we use to access the camera, by doing the following. 
+## Install the Rest of the Dependencies
+### Install Uv4L, the Streaming server we use to access the camera. 
 1. `curl http://www.linux-projects.org/listing/uv4l_repo/lrkey.asc | sudo apt-key add -`
 2. Add the following line to your /etc/apt/sources.list `deb http://www.linux-projects.org/listing/uv4l_repo/raspbian/ wheezy main`
 3.`sudo apt-get update`
@@ -39,14 +40,16 @@ Install the **python 3**  bindings for OpenCV by following [these instructions](
 5. Once that's done, go to your Pi's ip address on port 8080 to make sure it worked. Should be something like http://10.10.10.xxx:8080. 
 6. Configure it according to the [documentation](http://www.linux-projects.org/uv4l/) if necessary. I, for example, had to flip the Y axis of the image to get it to appear right-side-up.
 
-## Install a few more dependencies.
+### Install the Python dependencies.
   * `sudo pip3 install flask flask_injector yagmail apscheduler`
 
-## Clone this repo
+## Finishing up
+### Clone this repo
 Choose whatever install location you wish.
 
-## Setting up config files
+### Setting up config files
 In order to finish setting up the server, you need to provide it with some information. In the `WatchTheDoor/config_secret` directory, you'll find files `creds.json.example` and `to.json.example`. `cd` into that directory.
+
 1. Do `cp creds.json.example creds.json && cp to.json.example to.json`
 2. `creds.json` specifies the GMail account credentials of the account you want to be **sending** the emails notifying you when someone's at the door. Put the account username and password here. If you're not familiar with the JSON format, the example should make things pretty clear. 
 3. `to.json` specifies a list of recipients to be notified when someone's at the door. Feel free to use the same account that's sending the emails, and specify as many as you want in this JSON list.
