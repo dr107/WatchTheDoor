@@ -7,8 +7,9 @@ from app.configurator import AppConfig
 
 @app.route('/')
 @app.route('/index')
-def index():
-    return render_template('index.html', title='Home', user='Dan & Nelson')
+@inject
+def index(ac: AppConfig):
+    return render_template('index.html', title='Home', user=ac.name)
 
 
 @app.route('/about')

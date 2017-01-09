@@ -14,6 +14,7 @@ def _get_host():
 class AppConfig(object):
     CREDS_FILE = 'config_secret/creds.json'
     TO_FILE = 'config_secret/to.json'
+    PUBLIC_FILE = 'config_public.json'
 
     @inject
     def __init__(self, logger: Logger):
@@ -23,8 +24,11 @@ class AppConfig(object):
         self._get_job_config()
 
     def _get_job_config(self):
-        self.interval = 5
-        self.post_find_interval = 120
+        with open(AppConfig.PUBLIC_FILE, 'r') as config:
+            js = json_load(config)
+            self.interval = int(js['interval'])
+            self.post_find_interval = int(js['post_find_interval'])
+            self.name = str(js['name'])
 
     def _get_creds(self):
         files_found = True
