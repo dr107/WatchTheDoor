@@ -1,0 +1,5 @@
+{
+  "name": "User",
+  "interval": 5,
+  "post_find_interval": 120
+}
