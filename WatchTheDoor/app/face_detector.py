@@ -23,6 +23,8 @@ class Detector(object):
         self.scheduler = scheduler
         self.trigger = IntervalTrigger(seconds=self.config.interval)
         self.post_find_trigger = IntervalTrigger(seconds=self.config.post_find_interval)
+        casc_path = "/usr/local/share/OpenCV/haarcascades/haarcascade_frontalface_default.xml"
+        self.face_casc = cv2.CascadeClassifier(casc_path) 
         self.logger = logger
 
     def launch_detect_job(self):
@@ -39,7 +41,7 @@ class Detector(object):
         """
         Fetch a snapshot from the uv4L server and return it as a numpy byte array
         """
-        resp = urlopen("http://{}:8080/stream/snapshot.jpeg".format(self.config.host)).read()
+        resp = urlopen("http://localhost:8080/stream/snapshot.jpeg").read()
         return np.asarray(bytearray(resp), dtype=np.uint8)
 
     def _detect_faces(self):
@@ -61,11 +63,9 @@ class Detector(object):
             job.reschedule(self.trigger)
 
     def _detect(self, img_bytes):
-        casc_path = "/usr/local/share/OpenCV/haarcascades/haarcascade_frontalface_default.xml"
-        face_casc = cv2.CascadeClassifier(casc_path)
         img = cv2.imdecode(img_bytes, -1)
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        faces = face_casc.detectMultiScale(
+        faces = self.face_casc.detectMultiScale(
             # here's where the tweaking happens
             gray,
             scaleFactor=1.01,
@@ -83,6 +83,7 @@ class Detector(object):
         if numfaces == 0:
             return 0, None
 
-        name = '/tmp/' + str(uuid4()) + '.png'
+        name = '/tmp/{}.png'.format(uuid4())
         cv2.imwrite(name, img)
+        self.logger.info("Image file written to {}".format(name))
         return numfaces, name

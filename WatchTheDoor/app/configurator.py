@@ -6,10 +6,6 @@ from subprocess import check_output
 from os.path import isfile
 
 
-def _get_host():
-    return check_output(["hostname", "-I"], universal_newlines=True).strip().split()[0]
-
-
 @singleton
 class AppConfig(object):
     CREDS_FILE = 'config_secret/creds.json'
@@ -20,7 +16,6 @@ class AppConfig(object):
     def __init__(self, logger: Logger):
         self.logger = logger
         self._get_creds()
-        self.host = _get_host()
         self._get_job_config()
 
     def _get_job_config(self):

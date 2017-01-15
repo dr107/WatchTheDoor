@@ -18,9 +18,8 @@ def about():
 
 
 @app.route('/peephole')
-@inject
-def peephole(ac: AppConfig):
-    return render_template('peephole.html', title='Peephole', host=ac.host)
+def peephole():
+    return render_template('peephole.html', title='Peephole')
 
 
 @app.route('/test')

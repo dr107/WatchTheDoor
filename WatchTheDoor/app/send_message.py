@@ -27,4 +27,5 @@ class MessageSender(object):
                 self.logger.info("Sending a message to %s" % email)
                 yag.send(email, "SOMEONE AT THE DOOR (maybe)", contents)
 
+        self.logger.info("Deleting attachment file {}".format(attachment))
         os.remove(attachment)

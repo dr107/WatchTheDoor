@@ -13,10 +13,10 @@ abs_path = abspath(__file__)
 dir = dirname(abs_path)
 chdir(dir)
 
-logging.basicConfig()
+logging.basicConfig(format='%(asctime)s %(message)s')
 logging.root.setLevel(logging.WARN)
 inj = FlaskInjector(app=app, modules=[WatchTheDoorModule])
 det = inj.injector.get(Detector)
 det.launch_detect_job()
 
-app.run(host=det.config.host, threaded=True)
+app.run(host='0.0.0.0', threaded=True)

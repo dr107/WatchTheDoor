@@ -8,5 +8,11 @@
         }
     </style>
     <div class="text-info">This is what's going on outside your door...</div>
-    <img src="http://{{host}}:8080/stream/video.mjpeg" alt="image" style="max-width:100%;height:auto"/>
+    <img id="peepholeImg" alt="image" style="max-width:100%;height:auto"/>
+    <script>
+        // I have no patience to set this up in its own js file
+        var host = location.hostname;
+        var url = 'http://' + host + ':8080/stream/video.mjpeg'
+        document.getElementById('peepholeImg').src = url
+    </script>
 {% endblock %}
