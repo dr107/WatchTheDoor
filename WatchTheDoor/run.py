@@ -1,13 +1,13 @@
 #! /usr/bin/env python3
 import logging
+from os import chdir
+from os.path import abspath, dirname
 
 from flask_injector import FlaskInjector
 
 from app import app
 from app.dep_inject import WatchTheDoorModule
 from app.face_detector import Detector
-from os.path import abspath, dirname
-from os import chdir
 
 abs_path = abspath(__file__)
 dir = dirname(abs_path)

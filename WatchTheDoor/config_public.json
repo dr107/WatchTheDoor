@@ -1,5 +1,7 @@
 {
   "name": "Dan & Nelson",
   "interval": 5,
-  "post_find_interval": 120
+  "post_find_interval": 120,
+  "email_subject" : "Someone at the door!",
+  "email_body" : "It seems like someone's at the door; check the attachment"
 }
