@@ -87,4 +87,5 @@ Nobody likes to have to go into the Pi and restart the server in a screen sessio
 6. You should be done. `sudo supervisorctl status` should show the `WatchTheDoor` job as `RUNNING`, and doing `tail -f /var/log/WatchTheDoor.log` should show the logs printing as usual. Try rebooting your pi and it should start right back up.
  
 ### Avahi-Daemon (Use a hostname instead of an IP)
-TBD
+
+The [eLinux Wiki](https://elinux.org/RPi_Advanced_Setup) has a great page on setting up the avahi daemon on Raspberry Pi. It'll let you use your pi's hostname instead of a (potentially changing) ip address to connect to it from your LAN. I've found it a little finnicky, but mostly reliable, give it a shot.
